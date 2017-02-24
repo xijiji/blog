@@ -1,0 +1,93 @@
+.container(style="background: #ccc")
+  .row
+    //- .page-header.clearfix
+    h3(style="text-align: center") blog
+    .col-md-4
+      //- nav.navbar.navbar-default(role="navigation")
+      big
+        div.container-fluid
+        div
+          ul.nav.navbar-nav
+            li.active
+              a(href="/") index
+            li
+              a(href="/about") about  
+            li.dropdown
+              a.dropdown-toggle(href="#", data-toggle="dropdown") show
+                b.caret
+              ul.dropdown-menu
+                li
+                  a(href="/show/photosShow") photosShow
+                li
+                  a(href="/show/knowleageShow") others   
+            li.dropdown
+              a.dropdown-toggle(href="#", data-toggle="dropdown") admin
+                b.caret
+              ul.dropdown-menu
+                li
+                  a(href="/admin/article/new") record
+                li
+                  a(href="/admin/article/list") manage           
+      //- small 
+      //-   a.navbar-brand.dropdown-toggle(data-toggle="dropdown") admin
+      //-     b.caret
+      //-   ul.dropdown-menu(role="menu", aria-labelledby="dropdownMenu1")
+      //-     li(role="presentation")
+      //-       a(role="menuitem", tabindex="-1", href="/admin/article/new") record
+      //-     li(role="presentation")
+      //-       a(role="menuitem", tabindex="-1", href="/admin/article/list") manage 
+      //-   a.navbar-brand(href="/") index
+      //-   a.navbar-brand(href="/") info　       
+      //-   a.navbar-brand(href="/about") about         
+    .col-md-8
+      form(method='GET', action='/results')
+        .input-group.col-sm-4.pull-right
+          input.form-control(type='text', name='q')
+          span.input-group-btn
+            button.btn.btn-default(type='submit') 搜索   
+
+    br        
+.navbar.navbar-default.navbar-fixed-bottom
+  .container(style="background: #ccc")
+    .navbar-header
+      a.navbar-brand(href="/") blog
+    if user
+      p.navbar-text.navbar-right
+        span 欢迎您,#{user.name}
+        span &nbsp;|&nbsp;
+        a.navbar-link(href="/logout") 登出
+    else
+      p.navbar-text.navbar-right
+        a.navbar-link(href="#", data-toggle="modal", data-target="#signupModal") 注册
+        span &nbsp;|&nbsp;
+        a.navbar-link(href="#", data-toggle="modal", data-target="#signinModal") 登录
+#signupModal.modal.fade
+  .modal-dialog
+    .modal-content
+      form(method="POST", action="/user/signup")
+        .modal-header 注册
+        .modal-body
+          .form-group
+            label(for="signupName") 用户名
+            input#signupName.form-control(name="user[name]", type="text")
+          .form-group
+            label(for="signupPassword") 密码
+            input#signupPassword.form-control(name="user[password]", type="text")
+        .modal-footer
+          button.btn.btn-default(type="button", data-dismiss="modal") 关闭
+          button.btn.btn-success(type="submit") 提交
+#signinModal.modal.fade
+  .modal-dialog
+    .modal-content
+      form(method="POST", action="/user/signin")
+        .modal-header 登录
+        .modal-body
+          .form-group
+            label(for="signinName") 用户名
+            input#signinName.form-control(name="user[name]", type="text")
+          .form-group
+            label(for="signinPassword") 密码
+            input#signinPassword.form-control(name="user[password]", type="text")
+        .modal-footer
+          button.btn.btn-default(type="button", data-dismiss="modal") 关闭
+          button.btn.btn-success(type="submit") 提交

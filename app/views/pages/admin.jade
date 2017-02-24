@@ -1,0 +1,45 @@
+extends ../layout
+
+block content
+  .container
+    .row
+      form.form-horizontal(method="post", action="/admin/article", enctype="multipart/form-data")
+        if article._id
+          input(type="hidden", name="article[_id]", value=article._id)
+        .form-group
+          label.col-sm-2.control-label(for="inputCategory") 文章分类
+          .col-sm-10
+            input#inputCategory.form-control(type="text", name="article[categoryName]", value=article.categoryName)
+        .form-group
+          label.col-sm-2.control-label 分类选择
+          each cat in categories
+            label.radio-inline
+              if article.category
+                input(type="radio", name="article[category]", value=cat._id, checked=cat._id.toString()==article.category.toString())
+              else
+                input(type="radio", name="article[category]", value=cat._id)
+              | #{cat.name}
+        .form-group
+          label.col-sm-2.control-label(for="inputTitle") 文章标题
+          .col-sm-10
+            input#inputTitle.form-control(type="text", name="article[title]", value=article.title)
+        .form-group
+          label.col-sm-2.control-label(for="inputPoster") 文章配图
+          .col-sm-10
+            input#inputPoster.form-control(type="text", name="article[poster]", value=article.poster)
+        .form-group
+          label.col-sm-2.control-label(for="uploadPoster") 配图上传
+          .col-sm-10
+            input#uploadPoster(type="file", name="uploadPoster")
+      
+        .form-group
+          label.col-sm-2.control-label(for="inputContent") 文章内容
+          .col-sm-10
+            textarea#inputContent.form-control(type="text", style="height:400px", name="article[content]")= article.content
+        .form-group
+          .col-sm-offset-2.col-sm-10
+          button.btn.btn-default(type="submit") 发布
+          br
+          br
+          br  
+  script(src='/build/admin.min.js')

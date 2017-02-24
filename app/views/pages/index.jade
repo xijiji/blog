@@ -1,0 +1,27 @@
+extends ../layout
+
+block content
+  .container
+    .row
+      each cat in categories
+        .panel.panel-default
+          .panel-heading
+            h4
+              a(href='/results?cat=#{cat._id}&p=0') #{cat.name}
+          .panel-body
+            if cat.articles && cat.articles.length > 0
+              each item in cat.articles
+                //- .col-md-2
+                  //- .thumbnail
+                  //- p #{item}
+                a(href="/article/#{item._id}")
+                  //- if item.poster.indexOf('https:') > -1
+                  //-   img(src="#{item.poster}", alt="#{item.title}")
+                  //- else
+                  h5 #{item.title}
+                    //- img(src="/upload/#{item.poster}", alt="#{item.title}")
+                  //- .caption
+                  //-   h4 #{item.title}
+                  //-   p 阅读 #{item.pv}
+                  //-   p: a.btn.btn-primary(href="/article/#{item._id}", role="button") 查看详情
+            br      
